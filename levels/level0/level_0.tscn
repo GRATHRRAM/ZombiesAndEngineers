@@ -1,0 +1,131 @@
+[gd_scene load_steps=22 format=3 uid="uid://d2th8dej5msp8"]
+
+[ext_resource type="Texture2D" uid="uid://dqpx5ircgaaa" path="res://textures/prototype/Dark/texture_13.png" id="2_dg7gn"]
+[ext_resource type="PackedScene" uid="uid://n8ghki00vb83" path="res://player/Player.tscn" id="2_vf188"]
+[ext_resource type="Texture2D" uid="uid://ceg1t8r4x0vap" path="res://textures/prototype/Purple/texture_01.png" id="3_dg7gn"]
+[ext_resource type="Texture2D" uid="uid://dvrbug888xlxa" path="res://textures/prototype/Red/texture_01.png" id="4_3mult"]
+[ext_resource type="Texture2D" uid="uid://bihuqkf4l2oaf" path="res://textures/prototype/Green/texture_01.png" id="5_k54gb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ct3fn"]
+
+[sub_resource type="Sky" id="Sky_vf188"]
+sky_material = SubResource("ProceduralSkyMaterial_ct3fn")
+
+[sub_resource type="Environment" id="Environment_dg7gn"]
+background_mode = 2
+sky = SubResource("Sky_vf188")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vf188"]
+albedo_texture = ExtResource("2_dg7gn")
+uv1_scale = Vector3(10, 10, 10)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_nu7vk"]
+material = SubResource("StandardMaterial3D_vf188")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vf188"]
+size = Vector3(100.631, 1.49512, 100.843)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mult"]
+albedo_texture = ExtResource("3_dg7gn")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_k54gb"]
+material = SubResource("StandardMaterial3D_3mult")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xnrb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k54gb"]
+albedo_texture = ExtResource("4_3mult")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_5xnrb"]
+material = SubResource("StandardMaterial3D_k54gb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_avghk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xnrb"]
+albedo_texture = ExtResource("5_k54gb")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_3mult"]
+material = SubResource("StandardMaterial3D_5xnrb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k54gb"]
+
+[sub_resource type="TextMesh" id="TextMesh_k54gb"]
+text = "WSAD - Moving
+Space - Jump
+CTRL/C - Crouch
+B - Build Mode
+~ - Hide Gui
+
+/* IN Build Mode */
+N - Snap Mode
+M - Rotation Snap Mode
+L - Restart Rotation
+Arrows - Rotate
+Left Mouse (In Build Mode) - Place Block"
+
+[node name="Level0" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dg7gn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.418422, 0.908253, 0, -0.908253, 0.418422, 0, 18.9202, 15.798)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_vf188")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.410192, 1.81066, 0.437737)
+
+[node name="ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_nu7vk")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.905037, -0.247559, 0.591553)
+shape = SubResource("BoxShape3D_vf188")
+
+[node name="Box" type="StaticBody3D" parent="."]
+transform = Transform3D(3.8962, 0, 3.13363, 0, 5, 0, -3.13363, 0, 3.8962, -3.99029, 2.21318, 5.56045)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box"]
+mesh = SubResource("BoxMesh_k54gb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box"]
+shape = SubResource("BoxShape3D_5xnrb")
+
+[node name="ramp" type="StaticBody3D" parent="."]
+transform = Transform3D(0.597197, -8.02123, 0, 0.696836, 6.8743, 0, 0, 0, 3.94288, 4.65684, 3.00155, 5.65304)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ramp"]
+mesh = SubResource("BoxMesh_5xnrb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ramp"]
+shape = SubResource("BoxShape3D_avghk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(3.53553, 0, 3.53553, 0, 5, 0, -3.53553, 0, 3.53553, 8.02193, 4.77143, -9.31107)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_3mult")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_k54gb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.631488, 0, 0.775385, 0, 1, 0, -0.775385, 0, -0.631488, -2.31104, 2.5166, 3.49624)
+mesh = SubResource("TextMesh_k54gb")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.534161, 0, 0.845383, 0, 1, 0, -0.845383, 0, -0.534161, 0.0669795, 2.5778, 2.4046)
+light_bake_mode = 1
+spot_range = 9.22058
+spot_angle = 38.2373

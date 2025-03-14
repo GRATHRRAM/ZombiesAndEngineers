@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://n8ghki00vb83"]
+
+[ext_resource type="Script" uid="uid://cisembbcgx2fw" path="res://scripts/player/Player.cs" id="1_ulp21"]
+[ext_resource type="LabelSettings" uid="uid://biv7gi6n2dnmb" path="res://player/new_label_settings.tres" id="2_3c3w1"]
+[ext_resource type="Texture2D" uid="uid://mqu664udhl04" path="res://textures/cursor.png" id="3_wnvi2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ehsmr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ulp21"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ulp21")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_ehsmr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ulp21")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+
+[node name="Camera" type="Camera3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00012058, -1.49012e-08)
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="head/Camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.00775319, 1.49012e-08)
+target_position = Vector3(0, -7, 0)
+
+[node name="Gui" type="Control" parent="head/Camera"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 649.0
+
+[node name="fps" type="Label" parent="head/Camera/Gui"]
+layout_mode = 0
+offset_right = 101.0
+offset_bottom = 23.0
+text = "FPS 30"
+label_settings = ExtResource("2_3c3w1")
+
+[node name="BuildMenu" type="Control" parent="head/Camera/Gui"]
+anchors_preset = 0
+offset_left = 761.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 248.0
+
+[node name="Snap" type="Label" parent="head/Camera/Gui/BuildMenu"]
+layout_mode = 0
+offset_right = 391.0
+offset_bottom = 23.0
+text = "Snap: 1
+RotSnap: True"
+label_settings = ExtResource("2_3c3w1")
+
+[node name="Rotation" type="Label" parent="head/Camera/Gui/BuildMenu"]
+layout_mode = 0
+offset_top = 55.0
+offset_right = 389.0
+offset_bottom = 78.0
+text = "Rotation: {0,0,0}"
+label_settings = ExtResource("2_3c3w1")
+
+[node name="Info" type="Label" parent="head/Camera/Gui/BuildMenu"]
+layout_mode = 0
+offset_top = 87.0
+offset_right = 192.0
+offset_bottom = 188.0
+text = "N - Toggle Snap
+M - Toggle Rotation Snap
+L - Reset Rotation
+Arrows - Rotate"
+label_settings = ExtResource("2_3c3w1")
+
+[node name="Cursor" type="TextureRect" parent="head/Camera/Gui"]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 0
+offset_left = 570.0
+offset_top = 298.0
+offset_right = 620.0
+offset_bottom = 348.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_wnvi2")
