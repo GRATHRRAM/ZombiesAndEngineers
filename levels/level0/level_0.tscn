@@ -68,7 +68,8 @@ N - Snap Mode
 M - Rotation Snap Mode
 L - Restart Rotation
 Arrows - Rotate
-Left Mouse (In Build Mode) - Place Block"
+Left Mouse - Place Block
+Right Mouse - Destroy Block"
 
 [node name="Level0" type="Node3D"]
 
@@ -121,7 +122,7 @@ mesh = SubResource("BoxMesh_3mult")
 shape = SubResource("BoxShape3D_k54gb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.631488, 0, 0.775385, 0, 1, 0, -0.775385, 0, -0.631488, -2.31104, 2.5166, 3.49624)
+transform = Transform3D(-0.631488, 0, 0.775385, 0, 1, 0, -0.775385, 0, -0.631488, -2.22702, 2.66622, 3.69663)
 mesh = SubResource("TextMesh_k54gb")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]

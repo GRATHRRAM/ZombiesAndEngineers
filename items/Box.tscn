@@ -13,6 +13,7 @@ material = SubResource("StandardMaterial3D_2nhr1")
 [sub_resource type="BoxShape3D" id="BoxShape3D_kq5jo"]
 
 [node name="Box" type="StaticBody3D"]
+metadata/PlayerPlaced = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_ha5nd")

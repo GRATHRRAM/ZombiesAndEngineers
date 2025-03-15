@@ -66,7 +66,9 @@ namespace PlayerTools
 
 		public void Destroy()
 		{
-			if(RayCast.GetCollider() != null) RayCast.GetCollider().Free();
+			if(RayCast.GetCollider() != null) 
+				if(RayCast.GetCollider().HasMeta("PlayerPlaced"))
+					RayCast.GetCollider().Free();
 		}
 
 		public void PlaceHolderUpdate()
