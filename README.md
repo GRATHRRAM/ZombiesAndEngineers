@@ -24,8 +24,8 @@
 [Todo] - Crafting </br>
 [Todo] - Waves, difficulty levels, Menu Setting etc... </br>
 [Todo] - Day And Night </br>
-[Todo] - Player Models
-[Todo] - Animations
+[Todo] - Player Models</br>
+[Todo] - Animations</br>
 [Todo] - Multiplayer </br>
 -- Full Relese 1.0.0 </br>
  </br>
