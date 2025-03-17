@@ -35,6 +35,11 @@ namespace PlayerTools
 			PlaceHolder.Visible = false;
 			Player.GetParent().CallDeferred("add_child", PlaceHolder);
 		}
+
+		~Placer()
+		{
+			PlaceHolder.QueueFree();
+		}
 		
 		private Vector3 _Snap(Vector3 Position)
 		{

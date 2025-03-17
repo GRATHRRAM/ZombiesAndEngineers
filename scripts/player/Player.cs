@@ -52,6 +52,11 @@ public partial class Player : CharacterBody3D
 	private PlayerTools.Placer Placer = null;
 	private bool BuildMode = false;
 
+	/* Weapons */
+
+	[Export]
+	public int Ammo = 10;
+
 	private float Bool2Float(bool _Bool)
 	{
 		if (_Bool) return 1.0f;
@@ -92,6 +97,13 @@ public partial class Player : CharacterBody3D
 		else Gui.Visible = false;
 	}
 
+	public override void _EnterTree()
+	{
+		base._EnterTree();
+
+		GetNode("head/Camera/WeaponHolder/Test").Set("Player", this);
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -123,6 +135,12 @@ public partial class Player : CharacterBody3D
 		else Run = false;
 
 		if (Input.IsActionJustPressed("Crouch")) Crouch = !Crouch;
+
+		if (Input.IsActionJustPressed("QuickAc1"))
+		{
+			GetNode<Node3D>("head/Camera/WeaponHolder/Test").Visible = !GetNode<Node3D>("head/Camera/WeaponHolder/Test").Visible;
+			GetNode<Control>("head/Camera/Gui/GunInfo").Visible = GetNode<Node3D>("head/Camera/WeaponHolder/Test").Visible;
+		}
 
 		if (Input.IsActionJustPressed("ToggleGui")) ShowGui = !ShowGui;
 
@@ -187,23 +205,6 @@ public partial class Player : CharacterBody3D
 		}
 
 	}
-
-	/*
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		base._UnhandledInput(@event);
-
-		if(@event is InputEventMouseMotion Event)
-		{
-			head.RotateY(-Event.Relative.X * Sensitivity);
-			Camera.RotateX(-Event.Relative.Y * Sensitivity);
-			float CamRot = Math.Clamp(Camera.Rotation.X, Mathf.DegToRad(-60), Mathf.DegToRad(60));
-
-			Vector3 Rot = Camera.Rotation;
-			Rot.X = CamRot;
-			Camera.Rotation = Rot;
-		}
-	}*/
 
 	public override void _PhysicsProcess(double delta)
 	{

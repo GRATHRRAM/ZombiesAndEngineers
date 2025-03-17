@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3g0julm2bdnr"]
+[gd_scene load_steps=9 format=3 uid="uid://d3g0julm2bdnr"]
 
 [ext_resource type="Script" uid="uid://y3c8kivrlykf" path="res://scripts/Weapons/Guns/Test.cs" id="1_sa1u2"]
+[ext_resource type="PackedScene" uid="uid://ckvxijyyhs3cj" path="res://items/weapons/guns/Bullet.tscn" id="2_b1068"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkatw"]
 
@@ -20,17 +21,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles3D:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+
+[sub_resource type="Animation" id="Animation_sa1u2"]
+resource_name = "Reload"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.277392),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-6.28319, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_owxsv"]
@@ -46,48 +50,20 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.233333),
 "transitions": PackedFloat32Array(2.2974, 2.2974, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.404916, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(-0.975639, 0, 0), Vector3(0, 0, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles3D:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_sa1u2"]
-resource_name = "reload"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ngysv"]
 _data = {
 &"RESET": SubResource("Animation_n7ued"),
-&"Shoot": SubResource("Animation_owxsv"),
-&"reload": SubResource("Animation_sa1u2")
+&"Reload": SubResource("Animation_sa1u2"),
+&"Shoot": SubResource("Animation_owxsv")
 }
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sa1u2"]
-lifetime_randomness = 1.0
-spread = 90.0
-initial_velocity_min = 5.0
-initial_velocity_max = 15.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.2
-scale_max = 0.7
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sa1u2"]
-albedo_color = Color(1, 0.756863, 0.192157, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_b1068"]
-material = SubResource("StandardMaterial3D_sa1u2")
-
-[node name="Test" type="Node3D"]
+[node name="Test" type="Node3D" node_paths=PackedStringArray("BulletSpawnPoint")]
 script = ExtResource("1_sa1u2")
+BulletSpawnPoint = NodePath("BulletSpawn")
+BulletScene = ExtResource("2_b1068")
 
 [node name="Model" type="Node3D" parent="."]
 
@@ -106,15 +82,6 @@ libraries = {
 }
 
 [node name="BulletSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.81451)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 1.81451)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 1.79004)
-emitting = false
-amount = 20
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_sa1u2")
-draw_pass_1 = SubResource("BoxMesh_b1068")
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_AnimationFinished"]

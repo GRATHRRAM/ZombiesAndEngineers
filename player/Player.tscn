@@ -1,12 +1,75 @@
-[gd_scene load_steps=6 format=3 uid="uid://n8ghki00vb83"]
+[gd_scene load_steps=13 format=3 uid="uid://n8ghki00vb83"]
 
 [ext_resource type="Script" uid="uid://cisembbcgx2fw" path="res://scripts/player/Player.cs" id="1_ulp21"]
 [ext_resource type="LabelSettings" uid="uid://biv7gi6n2dnmb" path="res://player/new_label_settings.tres" id="2_3c3w1"]
 [ext_resource type="Texture2D" uid="uid://mqu664udhl04" path="res://textures/cursor.png" id="3_wnvi2"]
+[ext_resource type="PackedScene" uid="uid://d3g0julm2bdnr" path="res://items/weapons/guns/Test.tscn" id="4_83hs8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ehsmr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ulp21"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aqcbf"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_83hs8"]
+font_size = 50
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_83hs8"]
+resource_name = "Aim"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/Camera/WeaponHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [Vector3(0.93196, -0.29117, -1.15866), Vector3(0, -0.291, -1.159)]
+}
+
+[sub_resource type="Animation" id="Animation_aqcbf"]
+resource_name = "DeAim"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/Camera/WeaponHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.7411, 1.7411),
+"update": 0,
+"values": [Vector3(0, -0.291, -1.159), Vector3(0.93196, -0.29117, -1.15866)]
+}
+
+[sub_resource type="Animation" id="Animation_x8kxw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/Camera/WeaponHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.93196, -0.29117, -1.15866)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aqcbf"]
+_data = {
+&"Aim": SubResource("Animation_83hs8"),
+&"DeAim": SubResource("Animation_aqcbf"),
+&"RESET": SubResource("Animation_x8kxw")
+}
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_ulp21")
@@ -35,6 +98,24 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 649.0
 
+[node name="Cursor" type="TextureRect" parent="head/Camera/Gui"]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 0
+offset_left = 570.0
+offset_top = 298.0
+offset_right = 620.0
+offset_bottom = 348.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_wnvi2")
+
+[node name="Label" type="Label" parent="head/Camera/Gui"]
+layout_mode = 0
+offset_top = 630.0
+offset_right = 126.0
+offset_bottom = 653.0
+text = "Build 17.03.2025"
+label_settings = SubResource("LabelSettings_aqcbf")
+
 [node name="fps" type="Label" parent="head/Camera/Gui"]
 layout_mode = 0
 offset_right = 101.0
@@ -43,6 +124,7 @@ text = "FPS 30"
 label_settings = ExtResource("2_3c3w1")
 
 [node name="BuildMenu" type="Control" parent="head/Camera/Gui"]
+visible = false
 anchors_preset = 0
 offset_left = 761.0
 offset_top = 1.0
@@ -76,12 +158,30 @@ L - Reset Rotation
 Arrows - Rotate"
 label_settings = ExtResource("2_3c3w1")
 
-[node name="Cursor" type="TextureRect" parent="head/Camera/Gui"]
-modulate = Color(1, 1, 1, 0.498039)
+[node name="GunInfo" type="Control" parent="head/Camera/Gui"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Ammo" type="Label" parent="head/Camera/Gui/GunInfo"]
 layout_mode = 0
-offset_left = 570.0
-offset_top = 298.0
-offset_right = 620.0
-offset_bottom = 348.0
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_wnvi2")
+offset_left = 699.0
+offset_top = 581.0
+offset_right = 1145.0
+offset_bottom = 722.0
+text = "7/100
+"
+label_settings = SubResource("LabelSettings_83hs8")
+horizontal_alignment = 2
+
+[node name="WeaponHolder" type="Node3D" parent="head/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93196, -0.29117, -1.15866)
+
+[node name="Test" parent="head/Camera/WeaponHolder" instance=ExtResource("4_83hs8")]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0, 0)
+
+[node name="Ap" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_aqcbf")
+}

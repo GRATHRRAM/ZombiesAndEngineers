@@ -1,16 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://b736cvgsv62f7"]
+[gd_scene load_steps=5 format=3 uid="uid://ckvxijyyhs3cj"]
+
+[ext_resource type="Script" uid="uid://cijicrfdmsui" path="res://scripts/Weapons/Guns/Bullet.cs" id="1_1u6vy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gi8k"]
+albedo_color = Color(1, 1, 0.0470588, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7gi8k"]
+material = SubResource("StandardMaterial3D_7gi8k")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7gi8k"]
-size = Vector3(0.504482, 0.254944, 0.254898)
+[sub_resource type="BoxShape3D" id="BoxShape3D_1u6vy"]
+size = Vector3(0.519531, 0.250366, 0.247223)
 
-[node name="Bullet" type="StaticBody3D"]
+[node name="Bulet" type="Node3D"]
+script = ExtResource("1_1u6vy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 mesh = SubResource("BoxMesh_7gi8k")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000665665, 0.000579834, -0.00234222)
-shape = SubResource("BoxShape3D_7gi8k")
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00390625, -0.00177002, -0.00144958)
+shape = SubResource("BoxShape3D_1u6vy")
+
+[connection signal="body_entered" from="Area3D" to="." method="_OnBodyEntered"]
