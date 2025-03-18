@@ -18,9 +18,7 @@ public partial class Test : Node3D
 	[Export]
 	public PackedScene BulletScene = null;
 
-	[Export]
-	public Node Player = null;
-
+	private Global gl = null;
 
 	private int Ammo = 0;
 
@@ -36,10 +34,11 @@ public partial class Test : Node3D
 
 		if (BulletSpawnPoint == null) GD.Print($"{Name} -> Class Test (Gun) -> BulletSpawnPoint == null!!!");
 		if (BulletScene      == null) GD.Print($"{Name} -> Class Test (Gun) -> BulletScene == null!!!");
-		if (Player           == null) GD.Print($"{Name} -> Class Test (Gun) -> PlayerScene == null!!!");
 
 		Ap = GetNode<AnimationPlayer>("AnimationPlayer");
 		Ammo = MaxMagAmmo;
+
+		gl = GetNode<Global>("/root/_Global");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -47,15 +46,16 @@ public partial class Test : Node3D
 		base._Input(@event);
 
 		if (!Visible) return;
-		Player.GetNode<Control>("head/Camera/Gui/GunInfo").Visible = true;
-		Player.GetNode<Label>("head/Camera/Gui/GunInfo/Ammo").Text = Ammo.ToString() + "/" + Player.Get("Ammo").AsString();
+		gl.Player.GetNode<Control>("head/Camera/Gui/GunInfo").Visible = true;
+		gl.Player.GetNode<Label>("head/Camera/Gui/GunInfo/Ammo").Text = Ammo.ToString() + "/" + gl.Player.Get("Ammo").AsString();
 
 		if (Input.IsActionJustPressed("Shoot") && Ammo > 0 && ShootFinished && ReloadFinished)
 		{
 			Node3D Bullet = BulletScene.Instantiate() as Node3D;
 			Bullet.Position = BulletSpawnPoint.GlobalPosition;
 			Bullet.Rotation = BulletSpawnPoint.GlobalRotation;
-			Player.GetParent().AddChild(Bullet);
+			Bullet.Set("Damage", Damage);
+			gl.MainScene.AddChild(Bullet);
 			Ammo--;
 			Ap.Play("Shoot");
 			ShootFinished = false;
@@ -63,22 +63,22 @@ public partial class Test : Node3D
 
 		if (Input.IsActionJustPressed("Aim")) 
 		{
-			if (!Aim) Player.GetNode<AnimationPlayer>("Ap").Play("Aim");
-			else	 Player.GetNode<AnimationPlayer>("Ap").Play("DeAim");
+			if (!Aim) gl.Player.GetNode<AnimationPlayer>("Ap").Play("Aim");
+			else	  gl.Player.GetNode<AnimationPlayer>("Ap").Play("DeAim");
 			Aim = !Aim; 
 		}
 
 		if (Input.IsActionJustPressed("Reload") && ReloadFinished)
 		{
-			Ammo += Player.Get("Ammo").AsInt32();
+			Ammo += gl.Player.Get("Ammo").AsInt32();
 			if (Ammo == 0) return;
 
 			if (Ammo >= MaxMagAmmo)
 			{
-				Player.Set("Ammo", Ammo - MaxMagAmmo);
+				gl.Player.Set("Ammo", Ammo - MaxMagAmmo);
 				Ammo = MaxMagAmmo;
 			}
-			else Player.Set("Ammo", 0);
+			else gl.Player.Set("Ammo", 0);
 		
 			Ap.Play("Reload");
 			ReloadFinished = false;

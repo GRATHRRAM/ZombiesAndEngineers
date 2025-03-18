@@ -101,7 +101,8 @@ public partial class Player : CharacterBody3D
 	{
 		base._EnterTree();
 
-		GetNode("head/Camera/WeaponHolder/Test").Set("Player", this);
+		Global gl = GetNode<Global>("/root/_Global");
+		gl.Player = this;
 	}
 
 	public override void _Ready()

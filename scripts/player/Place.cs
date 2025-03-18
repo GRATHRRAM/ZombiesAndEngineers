@@ -10,8 +10,6 @@ namespace PlayerTools
 		private RayCast3D       RayCast = null;
 		private CharacterBody3D Player = null;
 
-		private bool InitFail = false;
-
 		public Vector3 Rotation = new Vector3();
 		
 		public UInt16 Snap = 1;
@@ -20,16 +18,16 @@ namespace PlayerTools
 		public Placer(CharacterBody3D _Player, string PlacingObjPath, string PlaceHolderPath)
 		{
 			Player = _Player;
-			if (Player == null) { GD.Print("Placer: Player is NULL!!"); InitFail = true; return;}
+			if (Player == null) { GD.Print("Placer: Player is NULL!!"); return;}
 
 			RayCast = Player.GetNode("head/Camera/RayCast3D") as RayCast3D;
-			if (RayCast == null) { GD.Print("Placer: RayCast is NULL!!"); InitFail = true; return;}
+			if (RayCast == null) { GD.Print("Placer: RayCast is NULL!!"); return;}
 
 			PackedScene ScenePlaceHolder = GD.Load(PlaceHolderPath) as PackedScene;
-			if (ScenePlaceHolder == null) { GD.Print("Placer: Cant Load PlaceHolder!!!"); InitFail = true; return;}
+			if (ScenePlaceHolder == null) { GD.Print("Placer: Cant Load PlaceHolder!!!"); return;}
 
 			Node2Place = GD.Load(PlacingObjPath) as PackedScene;
-			if (Node2Place == null) { GD.Print("Placer: Cant Load Node2Place!!!"); InitFail = true; return;}
+			if (Node2Place == null) { GD.Print("Placer: Cant Load Node2Place!!!"); return;}
 
 			PlaceHolder = ScenePlaceHolder.Instantiate() as MeshInstance3D;
 			PlaceHolder.Visible = false;

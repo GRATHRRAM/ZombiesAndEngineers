@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcui7ludt7jst"]
+
+[ext_resource type="Script" uid="uid://b2sh8wlqxg166" path="res://scripts/Weapons/Melee/MeleeTest.cs" id="1_ykexy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pw7de"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ykexy"]
+size = Vector3(0.098999, 1, 0.0996094)
+
+[sub_resource type="Animation" id="Animation_ykexy"]
+resource_name = "Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(2.07053, 0.615572, 0.615572),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.25664), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6rhis"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_861gb"]
+_data = {
+&"Attack": SubResource("Animation_ykexy"),
+&"RESET": SubResource("Animation_6rhis")
+}
+
+[node name="MeleeTest" type="RigidBody3D"]
+freeze = true
+script = ExtResource("1_ykexy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_pw7de")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10352e-05, 0, 0)
+shape = SubResource("BoxShape3D_ykexy")
+
+[node name="Ap" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_861gb")
+}
+
+[connection signal="animation_finished" from="Ap" to="." method="_AnimationFinished"]

@@ -9,6 +9,8 @@ public partial class Bullet : Node3D
 	[Export]
 	public float LifeTime = 10f; //Seconds
 
+	public int Damage = 0;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
