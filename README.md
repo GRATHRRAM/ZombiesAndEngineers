@@ -6,7 +6,7 @@
 [Done] - Player Controler </br>
 [Done] - Basic Building System  </br>
 [Working] - Weapons </br>
-[Todo] - Inventory </br>
+[Working] - Inventory </br>
 [Todo] - First Zombie </br>
 [Todo] - Items Like Ammo Box </br>
 [Todo] - Health and medic items </br>
