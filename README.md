@@ -3,15 +3,16 @@
  </br>
 
 # Roadmap </br>
+--- PreAlpha </br>
 [Done] - Player Controler </br>
 [Done] - Basic Building System  </br>
-[Working] - Weapons </br>
-[Working] - Inventory </br>
+[Only Added Test Gun For now] - Weapons </br>
+[Working] - Items Like Ammo Box </br>
+[Todo] - Inventory </br>
 [Todo] - First Zombie </br>
-[Todo] - Items Like Ammo Box </br>
 [Todo] - Health and medic items </br>
 [Todo] - Sound</br>
----First Build PreAlpha </br>
+--- Alpha </br>
 [Todo] - Map </br>
 [Todo] - More Weapons </br>
 [Todo] - More Items </br>
