@@ -11,7 +11,7 @@
 [Todo] - Items Like Ammo Box </br>
 [Todo] - Health and medic items </br>
 [Todo] - Sound</br>
----First Build PreAlpha 0.1.0 </br>
+---First Build PreAlpha </br>
 [Todo] - Map </br>
 [Todo] - More Weapons </br>
 [Todo] - More Items </br>
@@ -19,7 +19,7 @@
 [Todo] - Npc's </br>
 [Todo] - Trowables </br>
 [Todo] - Mussic</br>
--- Beta - 0.5.0 </br>
+-- Beta </br>
 [Todo] - Shop </br>
 [Todo] - Crafting </br>
 [Todo] - Waves, difficulty levels, Menu Setting etc... </br>
@@ -27,7 +27,7 @@
 [Todo] - Player Models</br>
 [Todo] - Animations</br>
 [Todo] - Multiplayer </br>
--- Full Relese 1.0.0 </br>
+-- Full Relese </br>
  </br>
 -- After 1.0 </br>
 [Todo] - Procedural Genarating Map </br>
