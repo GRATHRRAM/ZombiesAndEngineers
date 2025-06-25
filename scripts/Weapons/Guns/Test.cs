@@ -18,6 +18,12 @@ public partial class Test : Node3D
 	[Export]
 	public PackedScene BulletScene = null;
 
+	[Export]
+	public float Recoil = 0.1f;
+
+	[Export]
+	public float ShootCoolDownTime = 0.5f;
+
 	private Global gl = null;
 
 	private int Ammo = 0;
@@ -27,6 +33,7 @@ public partial class Test : Node3D
 	private bool Aim = false;
 
 	private AnimationPlayer Ap = null;
+	private Timer ShootCoolDown = null;
 
 	public override void _EnterTree()
 	{
@@ -37,6 +44,9 @@ public partial class Test : Node3D
 
 		Ap = GetNode<AnimationPlayer>("AnimationPlayer");
 		Ammo = MaxMagAmmo;
+
+		ShootCoolDown = GetNode<Timer>("ShootCoolDown");
+		ShootCoolDown.WaitTime = ShootCoolDownTime;
 
 		gl = GetNode<Global>("/root/_Global");
 	}
@@ -57,8 +67,14 @@ public partial class Test : Node3D
 			Bullet.Set("Damage", Damage);
 			gl.MainScene.AddChild(Bullet);
 			Ammo--;
-			Ap.Play("Shoot");
+
+			Transform3D Transform = gl.Player.GetNode<Node3D>("head").GetNode<Camera3D>("Camera").Transform;
+			Transform.Basis *= new Basis(Vector3.Right, Recoil);
+			gl.Player.GetNode<Node3D>("head").GetNode<Camera3D>("Camera").Transform = Transform;
+
 			ShootFinished = false;
+			ShootCoolDown.WaitTime = ShootCoolDownTime;
+			ShootCoolDown.Start();
 		}
 
 		if (Input.IsActionJustPressed("Aim")) 
@@ -87,8 +103,12 @@ public partial class Test : Node3D
 
 	public void _AnimationFinished(StringName Animation)
 	{
-		if (Animation == "Shoot")  ShootFinished = true;
 		if (Animation == "Reload") ReloadFinished = true;
+	}
+
+	public void _ShootCoolDown_Timeout()
+	{
+		ShootFinished = true;
 	}
 
 	public void _SetAmmo(int _Ammo)

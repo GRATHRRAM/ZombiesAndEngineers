@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d2th8dej5msp8"]
+[gd_scene load_steps=23 format=3 uid="uid://d2th8dej5msp8"]
 
 [ext_resource type="Script" uid="uid://b2bsenasx6u3r" path="res://scripts/MainScene.cs" id="1_avghk"]
 [ext_resource type="Texture2D" uid="uid://dqpx5ircgaaa" path="res://textures/prototype/Dark/texture_13.png" id="2_dg7gn"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://ceg1t8r4x0vap" path="res://textures/prototype/Purple/texture_01.png" id="3_dg7gn"]
 [ext_resource type="Texture2D" uid="uid://dvrbug888xlxa" path="res://textures/prototype/Red/texture_01.png" id="4_3mult"]
 [ext_resource type="Texture2D" uid="uid://bihuqkf4l2oaf" path="res://textures/prototype/Green/texture_01.png" id="5_k54gb"]
-[ext_resource type="PackedScene" uid="uid://dcui7ludt7jst" path="res://items/weapons/melee/MeleeTest.tscn" id="6_5xnrb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ct3fn"]
 
@@ -133,6 +132,3 @@ transform = Transform3D(-0.534161, 0, 0.845383, 0, 1, 0, -0.845383, 0, -0.534161
 light_bake_mode = 1
 spot_range = 9.22058
 spot_angle = 38.2373
-
-[node name="MeleeTest" parent="." instance=ExtResource("6_5xnrb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.22163, 5.21318, 2.4825)

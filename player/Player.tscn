@@ -13,8 +13,8 @@
 font_size = 15
 
 [sub_resource type="LabelSettings" id="LabelSettings_83hs8"]
-font_size = 50
-outline_size = 20
+font_size = 30
+outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_83hs8"]
@@ -159,17 +159,16 @@ Arrows - Rotate"
 label_settings = ExtResource("2_3c3w1")
 
 [node name="GunInfo" type="Control" parent="head/Camera/Gui"]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Ammo" type="Label" parent="head/Camera/Gui/GunInfo"]
 layout_mode = 0
-offset_left = 699.0
-offset_top = 581.0
-offset_right = 1145.0
-offset_bottom = 722.0
+offset_left = 695.0
+offset_top = 600.0
+offset_right = 1141.0
+offset_bottom = 741.0
 text = "7/100
 "
 label_settings = SubResource("LabelSettings_83hs8")
